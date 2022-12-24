@@ -85,7 +85,6 @@ bytetostr
 bytetostrwithzeros
 c
 c_bit
-calendar
 ccp1con
 ccp1ie
 ccp1ie_bit
@@ -152,6 +151,7 @@ d_not_a_bit
 data_address
 data_address_bit
 date
+day
 dc
 dc_bit
 dec2bcd
@@ -223,7 +223,6 @@ hextolongint
 hextoshort
 hextoword
 hour
-i
 i2c_is_idle
 i2c_is_idle_ptr
 i2c_read
@@ -261,6 +260,7 @@ inte
 inte_bit
 intedg
 intedg_bit
+interupt
 intf
 intf_bit
 inttohex
@@ -751,7 +751,6 @@ wren
 wren_bit
 wrerr
 wrerr_bit
-writepagenumber
 year
 z
 z_bit

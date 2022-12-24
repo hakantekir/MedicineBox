@@ -14,52 +14,63 @@ sbit LCD_D7_Direction at TRISB3_bit;
 
 unsigned short key=0, count = 0, page=0;
 char keypadPort at PORTD;
+char time[]="Time:   :  :  ";
+unsigned short second, minute, hour;
 
-char time[] = "TIME:  :  :  ";
-char calendar[] = "DATE:  /  /20  ";
-unsigned int i, second, minute, hour, date, month, year;
+struct alarm {
+ unsigned short second;
+ unsigned short minute;
+ unsigned short hour;
+ bool enabled;
+};
+
+
 
 void getTime(){
+ I2C1_Start();
+ I2C1_Wr(0xD0);
+ I2C1_Wr(0x00);
+ I2C1_Repeated_Start();
+ I2C1_Wr(0xD1);
+ second = I2C1_Rd(1);
+ minute = I2C1_Rd(1);
+ hour = I2C1_Rd(0);
+ I2C1_Stop();
 
- second = (second >> 4) * 10 + (second & 0x0F);
- minute = (minute >> 4) * 10 + (minute & 0x0F);
- hour = (hour >> 4) * 10 + (hour & 0x0F);
- date = (date >> 4) * 10 + (date & 0x0F);
- month = (month >> 4) * 10 + (month & 0x0F);
- year = (year >> 4) * 10 + (year & 0x0F);
 
- time[12] = second % 10 + 48;
- time[11] = second / 10 + 48;
- time[9] = minute % 10 + 48;
- time[8] = minute / 10 + 48;
- time[6] = hour % 10 + 48;
- time[5] = hour / 10 + 48;
- calendar[14] = year % 10 + 48;
- calendar[13] = year / 10 + 48;
- calendar[9] = month % 10 + 48;
- calendar[8] = month / 10 + 48;
- calendar[6] = date % 10 + 48;
- calendar[5] = date / 10 + 48;
+ Lcd_Chr(1,7,(hour/16)+48);
+ Lcd_Chr(1,8,(hour%16)+48);
+ Lcd_Chr(1,10,(minute/16)+48);
+ Lcd_Chr(1,11,(minute%16)+48);
+ Lcd_Chr(1,13,(second/16)+48);
+ Lcd_Chr(1,14,(second%16)+48);
 }
 
-void writePageNumber(int num){
- char numCh[7];
- Lcd_Cmd(_LCD_CLEAR);
- Lcd_Out(1,4,"Kutu: ");
- IntToStr(num, numCh);
- Lcd_Out_CP(numCh);
+
+
+void interupt() {
+ if (TMR0IF_bit) {
+ getTime();
+ TMR0IF_bit = 0;
+ TMR0 = 0x06;
+ count++;
+ if (count == 100) {
+ count = 0;
+ }
+ }
 }
 
 void main() {
- key=0;
- Keypad_Init();
+ INTCON.GIE = 1;
+ INTCON.T0IE = 1;
+ OPTION_REG = 0x07;
+ TMR0 = 0x06;
+
+ I2C1_Init(100000);
  Lcd_Init();
+ Keypad_Init();
  Lcd_Cmd(_LCD_CLEAR);
  Lcd_Cmd(_LCD_CURSOR_OFF);
- getTime();
-
-
- while(1){
- while(!key) key = Keypad_Key_Press();
- }
+ Lcd_Out(1,1,time);
+ while(1);
 }
