@@ -55,8 +55,9 @@ Count=2
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
-215=I2C
-Count=3
+231=Keypad4x4
+235=Lcd
+Count=4
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]

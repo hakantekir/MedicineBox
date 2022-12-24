@@ -60,6 +60,8 @@ adon
 adon_bit
 adresh
 adresl
+alarm
+alarms
 b0
 b1
 b2
@@ -137,11 +139,13 @@ ckp
 ckp_bit
 comfrem
 compare_double
+comparetime
 count
 cren
 cren_bit
 csrc
 csrc_bit
+cursor
 d
 d_a
 d_a_bit
@@ -150,8 +154,6 @@ d_not_a
 d_not_a_bit
 data_address
 data_address_bit
-date
-day
 dc
 dc_bit
 dec2bcd
@@ -183,6 +185,8 @@ double2int
 double2longint
 double2longword
 double2word
+edit
+editalarm
 eeadr
 eeadrh
 eecon1
@@ -260,7 +264,6 @@ inte
 inte_bit
 intedg
 intedg_bit
-interupt
 intf
 intf_bit
 inttohex
@@ -307,7 +310,6 @@ memcpy
 memmove
 memset
 minute
-month
 mul_16x16_s
 mul_16x16_u
 mul_32x32_fp
@@ -345,6 +347,7 @@ not_write
 not_write_bit
 nrm3232
 nrm4032
+num
 obf
 obf_bit
 obf_trise_bit
@@ -354,6 +357,7 @@ option_reg
 p
 p_bit
 page
+pageview
 pcfg0
 pcfg0_bit
 pcfg1
@@ -523,6 +527,7 @@ sdiv3232l
 second
 sen
 sen_bit
+setalarms
 setfdz32
 setfov32
 setfun32
@@ -751,6 +756,5 @@ wren
 wren_bit
 wrerr
 wrerr_bit
-year
 z
 z_bit
