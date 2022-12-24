@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP16F877 -DL -O11111114 -fo8 -N"C:\Users\hakan\Desktop\Ilac\Ilac.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"C:\Users\hakan\Desktop\Ilac\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" "Ilac.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_Keypad4x4.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl"	 
+hint: 0	1139	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
+diagnostics: 0	122	Compilation Started	Ilac.c
+diagnostics: 64	123	Compiled Successfully	Ilac.c
+diagnostics: 0	127	All files Compiled in 62 ms	 
+hint: 0	1144	Used RAM (bytes): 57 (16%)  Free RAM (bytes): 295 (84%)	Used RAM (bytes): 57 (16%)  Free RAM (bytes): 295 (84%)
+hint: 0	1144	Used ROM (program words): 809 (10%)  Free ROM (program words): 7383 (90%)	Used ROM (program words): 809 (10%)  Free ROM (program words): 7383 (90%)
+diagnostics: 0	125	Project Linked Successfully	Ilac.mcppi
+diagnostics: 0	128	Linked in 16 ms	 
+diagnostics: 0	129	Project 'Ilac.mcppi' completed: 235 ms	 
+diagnostics: 0	103	Finished successfully: 17 Dec 2022, 21:07:54	Ilac.mcppi

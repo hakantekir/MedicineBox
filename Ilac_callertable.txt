@@ -1,0 +1,16 @@
+main
+	__CC2DW
+		____DoICP
+	Keypad_Init
+	Lcd_Init
+		Delay_5500us
+		Delay_1us
+	Lcd_Cmd
+		Delay_1us
+		Delay_5500us
+		Delay_50us
+	getTime
+		Mul_16X16_U
+		Div_16X16_U
+	Keypad_Key_Press
+		Delay_1us
