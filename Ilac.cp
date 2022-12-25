@@ -12,10 +12,8 @@ sbit LCD_D5_Direction at TRISB1_bit;
 sbit LCD_D6_Direction at TRISB2_bit;
 sbit LCD_D7_Direction at TRISB3_bit;
 
-unsigned short key=0, count = 0, edit = 0, cursor = 0, alarm = 0, num = 0, second, minute, hour;
-short page = 0;
+char key=0, edit = 0, cursor = 0, alarm = 0, page = 0, second, minute, hour, i;
 char keypadPort at PORTD;
-char time[]="Time:   :  :  ";
 
 struct alarm {
  unsigned short minute;
@@ -24,17 +22,6 @@ struct alarm {
 };
 
 struct alarm alarms[5];
-
-
-
-void setAlarms(){
- int i;
- for(i = 0; i < 5; i++) {
- alarms[i].minute = i;
- alarms[i].hour = 0;
- alarms[i].active = 1;
- }
-}
 
 void getTime(){
  I2C1_Start();
@@ -56,32 +43,18 @@ void getTime(){
  Lcd_Chr(1,14,(second%16)+48);
 }
 
-
-
 void pageView(){
  char string[] = "Alarm     :  ";
  string[6] = page+49;
- string[8] = (alarms[page].hour/16)+48;
- string[9] = (alarms[page].hour%16)+48;
- string[11] = (alarms[page].minute/16)+48;
- string[12] = (alarms[page].minute%16)+48;
+ string[8] = (alarms[page].hour/10)+48;
+ string[9] = (alarms[page].hour%10)+48;
+ string[11] = (alarms[page].minute/10)+48;
+ string[12] = (alarms[page].minute%10)+48;
  Lcd_Out(2,1,string);
  if (alarms[page].active == 1) {
- Lcd_Out(3,1,"Active");
+ Lcd_Out(3,1," Active ");
  } else {
  Lcd_Out(3,1,"Inactive");
- }
-}
-
-
-
-void compareTime(){
- int i;
- for(i = 0; i < 5; i++)
- if (alarms[i].active == 1) {
- if (alarms[i].hour == hour && alarms[i].minute == minute) {
- Lcd_Out(3,1,"Alarm");
- }
  }
 }
 
@@ -89,17 +62,26 @@ void editAlarm(int num){
  if (edit) {
  switch (cursor) {
  case 0:
+ if (num > 2) {
+ num = 0;
+ }
  alarms[page].hour = num;
  Lcd_Chr(2,9,num+48);
  break;
  case 1:
+ if (alarms[page].hour == 2 && num > 3) {
+ num = 0;
+ }
  alarms[page].hour = alarms[page].hour*10 + num;
  Lcd_Chr(2,10,num+48);
+ LCD_CMD(_LCD_MOVE_CURSOR_RIGHT);
  break;
  case 2:
+ if (num > 5) {
+ num = 0;
+ }
  alarms[page].minute = num;
  Lcd_Chr(2,12,num+48);
- LCD_CMD(_LCD_MOVE_CURSOR_RIGHT);
  break;
  case 3:
  alarms[page].minute = alarms[page].minute*10 + num;
@@ -115,6 +97,26 @@ void editAlarm(int num){
  }
 }
 
+void func(){
+ if (INTCON.TMR0IF) {
+ INTCON.TMR0IF = 0;
+ TMR0 = 0;
+ for(i = 0; i < 5; i++){
+ if (alarms[i].active == 1) {
+ if (alarms[i].hour == hour && alarms[i].minute == minute) {
+ Lcd_Out(3,1,"Alarm");
+ }
+ }
+ }
+ }
+}
+
+
+void interrupt(){
+ func();
+}
+
+
 void main() {
  key = 0;
  I2C1_Init(100000);
@@ -122,73 +124,68 @@ void main() {
  Keypad_Init();
  Lcd_Cmd(_LCD_CLEAR);
  Lcd_Cmd(_LCD_CURSOR_OFF);
- Lcd_Out(1,1,time);
- setAlarms();
+ Lcd_Out(1,1,"Time:   :  :  ");
  pageView();
+ INTCON.GIE = 1;
+ INTCON.T0IE = 1;
+ TMR0=0;
+ OPTION_REG = 0x07;
  while(1){
  key = 0;
  do {
  key = Keypad_Key_Click();
  } while (!key);
  switch (key){
-#line 150 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
+#line 155 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
  case 1:
- num = 7;
- editAlarm(num);
+ editAlarm(7);
  break;
 
  case 2:
- num = 4;
- editAlarm(num);
+ editAlarm(4);
  break;
 
  case 3:
- num = 1;
- editAlarm(num);
+ editAlarm(1);
  break;
 
  case 5:
- num = 8;
- editAlarm(num);
+ editAlarm(8);
  break;
  case 6:
- num = 5;
- editAlarm(num);
+ editAlarm(5);
  break;
 
  case 7:
- num = 2;
- editAlarm(num);
+ editAlarm(2);
  break;
 
  case 8:
- num = 0;
- editAlarm(num);
+ editAlarm(0);
  break;
 
  case 9:
- num = 9;
- editAlarm(num);
+ editAlarm(9);
  break;
 
  case 10:
- num = 6;
- editAlarm(num);
+ editAlarm(6);
  break;
 
  case 11:
- num = 3;
- editAlarm(num);
+ editAlarm(3);
  break;
 
 
  case 4:
+ if (!edit){
  if (alarms[page].active == 1) {
  alarms[page].active = 0;
  } else {
  alarms[page].active = 1;
  }
  pageView();
+ }
  break;
 
 
@@ -214,16 +211,20 @@ void main() {
 
 
  case 15:
+ if (!edit){
  page--;
- if (page == -1) {
+ if (page == 255) {
  page = 4;
  }
  pageView();
+ }
  break;
 
  case 16:
+ if (!edit){
  page = (page + 1) % 5;
  pageView();
+ }
  break;
  }
  }

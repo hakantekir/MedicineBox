@@ -25,7 +25,8 @@ Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
 File0=Ilac.c
-Count=1
+File1=..\..\..\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\__Lib_Delays.c
+Count=2
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -49,15 +50,14 @@ File4=C_String
 File5=I2C
 Count=6
 [EXPANDED_NODES]
-0=MyProject.mcppi
 21=Ilac.mcppi
-Count=2
+Count=1
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
 231=Keypad4x4
 235=Lcd
-Count=4
+Count=5
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]

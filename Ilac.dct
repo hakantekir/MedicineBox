@@ -139,8 +139,6 @@ ckp
 ckp_bit
 comfrem
 compare_double
-comparetime
-count
 cren
 cren_bit
 csrc
@@ -208,6 +206,7 @@ floattostr
 floattostr_fixlen
 fsr
 fsrptr
+func
 gcen
 gcen_bit
 get_fosc_khz
@@ -227,6 +226,7 @@ hextolongint
 hextoshort
 hextoword
 hour
+i
 i2c_is_idle
 i2c_is_idle_ptr
 i2c_read
@@ -264,6 +264,7 @@ inte
 inte_bit
 intedg
 intedg_bit
+interrupt
 intf
 intf_bit
 inttohex
@@ -347,7 +348,6 @@ not_write
 not_write_bit
 nrm3232
 nrm4032
-num
 obf
 obf_bit
 obf_trise_bit
@@ -527,7 +527,6 @@ sdiv3232l
 second
 sen
 sen_bit
-setalarms
 setfdz32
 setfov32
 setfun32
@@ -619,7 +618,6 @@ t2ckps0_bit
 t2ckps1
 t2ckps1_bit
 t2con
-time
 tmr0
 tmr0ie
 tmr0ie_bit
