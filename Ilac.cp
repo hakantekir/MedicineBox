@@ -1,4 +1,10 @@
 #line 1 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
+
+
+
+
+
+
 sbit LCD_RS at RB4_bit;
 sbit LCD_EN at RB5_bit;
 sbit LCD_D4 at RB0_bit;
@@ -12,7 +18,7 @@ sbit LCD_D5_Direction at TRISB1_bit;
 sbit LCD_D6_Direction at TRISB2_bit;
 sbit LCD_D7_Direction at TRISB3_bit;
 
-char key=0, edit = 0, cursor = 0, alarm = 0, page = 0, second, minute, hour, i;
+char key=0, edit = 0, cursor = 0, page = 0, second, minute, hour, i;
 char keypadPort at PORTD;
 
 struct alarm {
@@ -33,14 +39,15 @@ void getTime(){
  minute = I2C1_Rd(1);
  hour = I2C1_Rd(0);
  I2C1_Stop();
-
-
- Lcd_Chr(1,7,(hour/16)+48);
- Lcd_Chr(1,8,(hour%16)+48);
- Lcd_Chr(1,10,(minute/16)+48);
- Lcd_Chr(1,11,(minute%16)+48);
- Lcd_Chr(1,13,(second/16)+48);
- Lcd_Chr(1,14,(second%16)+48);
+ second = (second/16)*10 + (second%16);
+ minute = (minute/16)*10 + (minute%16);
+ hour = (hour/16)*10 + (hour%16);
+ Lcd_Chr(1,7,(hour/10)+48);
+ Lcd_Chr(1,8,(hour%10)+48);
+ Lcd_Chr(1,10,(minute/10)+48);
+ Lcd_Chr(1,11,(minute%10)+48);
+ Lcd_Chr(1,13,(second/10)+48);
+ Lcd_Chr(1,14,(second%10)+48);
 }
 
 void pageView(){
@@ -97,28 +104,38 @@ void editAlarm(int num){
  }
 }
 
-void func(){
- if (INTCON.TMR0IF) {
- INTCON.TMR0IF = 0;
- TMR0 = 0;
- for(i = 0; i < 5; i++){
- if (alarms[i].active == 1) {
- if (alarms[i].hour == hour && alarms[i].minute == minute) {
- Lcd_Out(3,1,"Alarm");
+void alarm(int pageNum){
+ switch (pageNum) {
+ case 0:
+  PORTC.B0  = 1;
+ break;
+ case 1:
+  PORTC.B1  = 1;
+ break;
+ case 2:
+  PORTC.B5  = 1;
+ break;
+ case 3:
+  PORTC.B6  = 1;
+ break;
+ case 4:
+  PORTC.B7  = 1;
+ break;
  }
- }
- }
- }
+ PWm1_Start();
 }
 
-
-void interrupt(){
- func();
-}
-
-
-void main() {
+void setup(){
+ TRISC.B0 = 0;
+ TRISC.B1 = 0;
+ TRISC.B2 = 0;
+ TRISC.B5 = 0;
+ TRISC.B6 = 0;
+ TRISC.B7 = 0;
+  PORTC.B0  = 0;
  key = 0;
+ PWM1_Init(1000);
+ PWM1_Set_Duty(1000);
  I2C1_Init(100000);
  Lcd_Init();
  Keypad_Init();
@@ -126,17 +143,32 @@ void main() {
  Lcd_Cmd(_LCD_CURSOR_OFF);
  Lcd_Out(1,1,"Time:   :  :  ");
  pageView();
- INTCON.GIE = 1;
- INTCON.T0IE = 1;
- TMR0=0;
- OPTION_REG = 0x07;
+ for (i = 0; i < 5; i++) {
+ alarms[i].minute = 0;
+ alarms[i].hour = 0;
+ alarms[i].active = 0;
+ }
+  PORTC.B0  = 0;
+  PORTC.B1  = 0;
+  PORTC.B5  = 0;
+  PORTC.B6  = 0;
+  PORTC.B7  = 0;
+ PORTC.B2 = 0;
+}
+
+void main() {
+ setup();
  while(1){
+ getTime();
+ for(i = 0; i < 5; i++){
+ if (alarms[i].active == 1 && alarms[i].hour == hour && alarms[i].minute == minute) {
+ alarm(i);
+ }
+ }
  key = 0;
- do {
  key = Keypad_Key_Click();
- } while (!key);
  switch (key){
-#line 155 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
+#line 187 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
  case 1:
  editAlarm(7);
  break;
@@ -179,11 +211,7 @@ void main() {
 
  case 4:
  if (!edit){
- if (alarms[page].active == 1) {
- alarms[page].active = 0;
- } else {
- alarms[page].active = 1;
- }
+ alarms[page].active = !alarms[page].active;
  pageView();
  }
  break;
@@ -206,7 +234,12 @@ void main() {
 
 
  case 14:
- alarm=0;
+  PORTC.B0  = 0;
+  PORTC.B1  = 0;
+  PORTC.B5  = 0;
+  PORTC.B6  = 0;
+  PORTC.B7  = 0;
+ PWM1_Stop();
  break;
 
 

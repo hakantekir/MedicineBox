@@ -1,27 +1,19 @@
 main
 	__CC2DW
 		____DoICP
-	I2C1_Init
-	Lcd_Init
-		Delay_5500us
-		Delay_1us
-	Keypad_Init
-	Lcd_Cmd
-		Delay_1us
-		Delay_5500us
-		Delay_50us
-	Lcd_Out
+	setup
+		PWM1_Init
+		PWM1_Set_Duty
+			Mul_16X16_U
+		I2C1_Init
+		Lcd_Init
+			Delay_5500us
+			Delay_1us
+		Keypad_Init
 		Lcd_Cmd
 			Delay_1us
 			Delay_5500us
 			Delay_50us
-		Lcd_Chr_CP
-			Lcd_Cmd
-				Delay_1us
-				Delay_5500us
-				Delay_50us
-	pageView
-		Div_8X8_U
 		Lcd_Out
 			Lcd_Cmd
 				Delay_1us
@@ -32,6 +24,38 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
+		pageView
+			Div_8X8_U
+			Lcd_Out
+				Lcd_Cmd
+					Delay_1us
+					Delay_5500us
+					Delay_50us
+				Lcd_Chr_CP
+					Lcd_Cmd
+						Delay_1us
+						Delay_5500us
+						Delay_50us
+	getTime
+		I2C1_Start
+			I2C1_Is_Idle
+			____DoIFC
+		I2C1_Wr
+			____DoIFC
+		I2C1_Repeated_Start
+			____DoIFC
+		I2C1_Rd
+			____DoIFC
+		I2C1_Stop
+		Mul_8X8_U
+		Div_8X8_U
+		Lcd_Chr
+			Lcd_Cmd
+				Delay_1us
+				Delay_5500us
+				Delay_50us
+	alarm
+		PWM1_Start
 	Keypad_Key_Click
 		Keypad_Key_Press
 			Delay_1us
@@ -47,5 +71,32 @@ main
 			Delay_1us
 			Delay_5500us
 			Delay_50us
+	pageView
+		Div_8X8_U
+		Lcd_Out
+			Lcd_Cmd
+				Delay_1us
+				Delay_5500us
+				Delay_50us
+			Lcd_Chr_CP
+				Lcd_Cmd
+					Delay_1us
+					Delay_5500us
+					Delay_50us
+	Lcd_Cmd
+		Delay_1us
+		Delay_5500us
+		Delay_50us
+	Lcd_Out
+		Lcd_Cmd
+			Delay_1us
+			Delay_5500us
+			Delay_50us
+		Lcd_Chr_CP
+			Lcd_Cmd
+				Delay_1us
+				Delay_5500us
+				Delay_50us
+	PWM1_Stop
 	Div_16x16_S
 		Div_16x16_S_L
