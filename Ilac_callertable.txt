@@ -71,6 +71,16 @@ main
 			Delay_1us
 			Delay_5500us
 			Delay_50us
+		Lcd_Out
+			Lcd_Cmd
+				Delay_1us
+				Delay_5500us
+				Delay_50us
+			Lcd_Chr_CP
+				Lcd_Cmd
+					Delay_1us
+					Delay_5500us
+					Delay_50us
 	pageView
 		Div_8X8_U
 		Lcd_Out
@@ -83,10 +93,6 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
-	Lcd_Cmd
-		Delay_1us
-		Delay_5500us
-		Delay_50us
 	Lcd_Out
 		Lcd_Cmd
 			Delay_1us
@@ -97,6 +103,10 @@ main
 				Delay_1us
 				Delay_5500us
 				Delay_50us
+	Lcd_Cmd
+		Delay_1us
+		Delay_5500us
+		Delay_50us
 	PWM1_Stop
 	Div_16x16_S
 		Div_16x16_S_L

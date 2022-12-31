@@ -99,6 +99,7 @@ void editAlarm(int num){
  if (cursor == 4) {
  cursor = 0;
  edit = 0;
+ Lcd_Out(1,1,"Time:   :  :  ");
  LCD_CMD(_LCD_CURSOR_OFF);
  }
  }
@@ -159,16 +160,16 @@ void setup(){
 void main() {
  setup();
  while(1){
- getTime();
+ if(!edit) getTime();
  for(i = 0; i < 5; i++){
- if (alarms[i].active == 1 && alarms[i].hour == hour && alarms[i].minute == minute) {
+ if (alarms[i].active == 1 && alarms[i].hour == hour && alarms[i].minute == minute && second < 5) {
  alarm(i);
  }
  }
  key = 0;
  key = Keypad_Key_Click();
  switch (key){
-#line 187 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
+#line 188 "C:/Users/hakan/Desktop/Ilac/Ilac.c"
  case 1:
  editAlarm(7);
  break;
@@ -219,13 +220,10 @@ void main() {
 
 
  case 13:
- if (edit){
- edit = 0;
- cursor = 0;
- LCD_CMD(_LCD_CURSOR_OFF);
- }
- else {
+ if (!edit){
  edit = 1;
+ LCD_Out(1,1,"    Edit Mode    ");
+ LCD_Out(2,9,"  :  ");
  LCD_CMD(_LCD_BLINK_CURSOR_ON);
  Lcd_Out(2,8," ");
  }

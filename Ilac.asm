@@ -580,55 +580,63 @@ L_editAlarm4:
 	CLRF       _cursor+0
 ;Ilac.c,100 :: 		edit = 0;
 	CLRF       _edit+0
-;Ilac.c,101 :: 		LCD_CMD(_LCD_CURSOR_OFF);
+;Ilac.c,101 :: 		Lcd_Out(1,1,"Time:   :  :  ");
+	MOVLW      1
+	MOVWF      FARG_Lcd_Out_row+0
+	MOVLW      1
+	MOVWF      FARG_Lcd_Out_column+0
+	MOVLW      ?lstr3_Ilac+0
+	MOVWF      FARG_Lcd_Out_text+0
+	CALL       _Lcd_Out+0
+;Ilac.c,102 :: 		LCD_CMD(_LCD_CURSOR_OFF);
 	MOVLW      12
 	MOVWF      FARG_Lcd_Cmd_out_char+0
 	CALL       _Lcd_Cmd+0
-;Ilac.c,102 :: 		}
-L_editAlarm14:
 ;Ilac.c,103 :: 		}
-L_editAlarm2:
+L_editAlarm14:
 ;Ilac.c,104 :: 		}
+L_editAlarm2:
+;Ilac.c,105 :: 		}
 L_end_editAlarm:
 	RETURN
 ; end of _editAlarm
 
 _alarm:
 
-;Ilac.c,106 :: 		void alarm(int pageNum){
-;Ilac.c,107 :: 		switch (pageNum) {
+;Ilac.c,107 :: 		void alarm(int pageNum){
+;Ilac.c,108 :: 		switch (pageNum) {
 	GOTO       L_alarm15
-;Ilac.c,108 :: 		case 0:
+;Ilac.c,109 :: 		case 0:
 L_alarm17:
-;Ilac.c,109 :: 		led0 = 1;
+;Ilac.c,110 :: 		led0 = 1;
 	BSF        PORTC+0, 0
-;Ilac.c,110 :: 		break;
+;Ilac.c,111 :: 		break;
 	GOTO       L_alarm16
-;Ilac.c,111 :: 		case 1:
+;Ilac.c,112 :: 		case 1:
 L_alarm18:
-;Ilac.c,112 :: 		led1 = 1;
+;Ilac.c,113 :: 		led1 = 1;
 	BSF        PORTC+0, 1
-;Ilac.c,113 :: 		break;
+;Ilac.c,114 :: 		break;
 	GOTO       L_alarm16
-;Ilac.c,114 :: 		case 2:
+;Ilac.c,115 :: 		case 2:
 L_alarm19:
-;Ilac.c,115 :: 		led2 = 1;
+;Ilac.c,116 :: 		led2 = 1;
 	BSF        PORTC+0, 5
-;Ilac.c,116 :: 		break;
+;Ilac.c,117 :: 		break;
 	GOTO       L_alarm16
-;Ilac.c,117 :: 		case 3:
+;Ilac.c,118 :: 		case 3:
 L_alarm20:
-;Ilac.c,118 :: 		led3 = 1;
+;Ilac.c,119 :: 		led3 = 1;
 	BSF        PORTC+0, 6
-;Ilac.c,119 :: 		break;
+;Ilac.c,120 :: 		break;
 	GOTO       L_alarm16
-;Ilac.c,120 :: 		case 4:
+;Ilac.c,121 :: 		case 4:
 L_alarm21:
-;Ilac.c,121 :: 		led4 = 1;
+;Ilac.c,122 :: 		led4 = 1;
 	BSF        PORTC+0, 7
-;Ilac.c,122 :: 		break;
+;Ilac.c,123 :: 		break;
 	GOTO       L_alarm16
-;Ilac.c,123 :: 		}
+;Ilac.c,124 :: 		}
 L_alarm15:
 	MOVLW      0
 	XORWF      FARG_alarm_pageNum+1, 0
@@ -676,76 +684,76 @@ L__alarm70:
 	BTFSC      STATUS+0, 2
 	GOTO       L_alarm21
 L_alarm16:
-;Ilac.c,124 :: 		PWm1_Start();
+;Ilac.c,125 :: 		PWm1_Start();
 	CALL       _PWM1_Start+0
-;Ilac.c,125 :: 		}
+;Ilac.c,126 :: 		}
 L_end_alarm:
 	RETURN
 ; end of _alarm
 
 _setup:
 
-;Ilac.c,127 :: 		void setup(){
-;Ilac.c,128 :: 		TRISC.B0 = 0;
+;Ilac.c,128 :: 		void setup(){
+;Ilac.c,129 :: 		TRISC.B0 = 0;
 	BCF        TRISC+0, 0
-;Ilac.c,129 :: 		TRISC.B1 = 0;
+;Ilac.c,130 :: 		TRISC.B1 = 0;
 	BCF        TRISC+0, 1
-;Ilac.c,130 :: 		TRISC.B2 = 0;
+;Ilac.c,131 :: 		TRISC.B2 = 0;
 	BCF        TRISC+0, 2
-;Ilac.c,131 :: 		TRISC.B5 = 0;
+;Ilac.c,132 :: 		TRISC.B5 = 0;
 	BCF        TRISC+0, 5
-;Ilac.c,132 :: 		TRISC.B6 = 0;
+;Ilac.c,133 :: 		TRISC.B6 = 0;
 	BCF        TRISC+0, 6
-;Ilac.c,133 :: 		TRISC.B7 = 0;
+;Ilac.c,134 :: 		TRISC.B7 = 0;
 	BCF        TRISC+0, 7
-;Ilac.c,134 :: 		led0 = 0;
+;Ilac.c,135 :: 		led0 = 0;
 	BCF        PORTC+0, 0
-;Ilac.c,135 :: 		key = 0;
+;Ilac.c,136 :: 		key = 0;
 	CLRF       _key+0
-;Ilac.c,136 :: 		PWM1_Init(1000);
+;Ilac.c,137 :: 		PWM1_Init(1000);
 	BSF        T2CON+0, 0
 	BSF        T2CON+0, 1
 	MOVLW      124
 	MOVWF      PR2+0
 	CALL       _PWM1_Init+0
-;Ilac.c,137 :: 		PWM1_Set_Duty(1000);
+;Ilac.c,138 :: 		PWM1_Set_Duty(1000);
 	MOVLW      232
 	MOVWF      FARG_PWM1_Set_Duty_new_duty+0
 	CALL       _PWM1_Set_Duty+0
-;Ilac.c,138 :: 		I2C1_Init(100000);
+;Ilac.c,139 :: 		I2C1_Init(100000);
 	MOVLW      20
 	MOVWF      SSPADD+0
 	CALL       _I2C1_Init+0
-;Ilac.c,139 :: 		Lcd_Init();
+;Ilac.c,140 :: 		Lcd_Init();
 	CALL       _Lcd_Init+0
-;Ilac.c,140 :: 		Keypad_Init();
+;Ilac.c,141 :: 		Keypad_Init();
 	CALL       _Keypad_Init+0
-;Ilac.c,141 :: 		Lcd_Cmd(_LCD_CLEAR);
+;Ilac.c,142 :: 		Lcd_Cmd(_LCD_CLEAR);
 	MOVLW      1
 	MOVWF      FARG_Lcd_Cmd_out_char+0
 	CALL       _Lcd_Cmd+0
-;Ilac.c,142 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
+;Ilac.c,143 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
 	MOVLW      12
 	MOVWF      FARG_Lcd_Cmd_out_char+0
 	CALL       _Lcd_Cmd+0
-;Ilac.c,143 :: 		Lcd_Out(1,1,"Time:   :  :  ");
+;Ilac.c,144 :: 		Lcd_Out(1,1,"Time:   :  :  ");
 	MOVLW      1
 	MOVWF      FARG_Lcd_Out_row+0
 	MOVLW      1
 	MOVWF      FARG_Lcd_Out_column+0
-	MOVLW      ?lstr3_Ilac+0
+	MOVLW      ?lstr4_Ilac+0
 	MOVWF      FARG_Lcd_Out_text+0
 	CALL       _Lcd_Out+0
-;Ilac.c,144 :: 		pageView();
+;Ilac.c,145 :: 		pageView();
 	CALL       _pageView+0
-;Ilac.c,145 :: 		for (i = 0; i < 5; i++) {
+;Ilac.c,146 :: 		for (i = 0; i < 5; i++) {
 	CLRF       _i+0
 L_setup22:
 	MOVLW      5
 	SUBWF      _i+0, 0
 	BTFSC      STATUS+0, 0
 	GOTO       L_setup23
-;Ilac.c,146 :: 		alarms[i].minute = 0;
+;Ilac.c,147 :: 		alarms[i].minute = 0;
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -756,7 +764,7 @@ L_setup22:
 	ADDLW      _alarms+0
 	MOVWF      FSR
 	CLRF       INDF+0
-;Ilac.c,147 :: 		alarms[i].hour = 0;
+;Ilac.c,148 :: 		alarms[i].hour = 0;
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -768,7 +776,7 @@ L_setup22:
 	INCF       R0+0, 0
 	MOVWF      FSR
 	CLRF       INDF+0
-;Ilac.c,148 :: 		alarms[i].active = 0;
+;Ilac.c,149 :: 		alarms[i].active = 0;
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -783,45 +791,49 @@ L_setup22:
 	CLRF       INDF+0
 	INCF       FSR, 1
 	CLRF       INDF+0
-;Ilac.c,145 :: 		for (i = 0; i < 5; i++) {
+;Ilac.c,146 :: 		for (i = 0; i < 5; i++) {
 	INCF       _i+0, 1
-;Ilac.c,149 :: 		}
+;Ilac.c,150 :: 		}
 	GOTO       L_setup22
 L_setup23:
-;Ilac.c,150 :: 		led0 = 0;
+;Ilac.c,151 :: 		led0 = 0;
 	BCF        PORTC+0, 0
-;Ilac.c,151 :: 		led1 = 0;
+;Ilac.c,152 :: 		led1 = 0;
 	BCF        PORTC+0, 1
-;Ilac.c,152 :: 		led2 = 0;
+;Ilac.c,153 :: 		led2 = 0;
 	BCF        PORTC+0, 5
-;Ilac.c,153 :: 		led3 = 0;
+;Ilac.c,154 :: 		led3 = 0;
 	BCF        PORTC+0, 6
-;Ilac.c,154 :: 		led4 = 0;
+;Ilac.c,155 :: 		led4 = 0;
 	BCF        PORTC+0, 7
-;Ilac.c,155 :: 		PORTC.B2 = 0;
+;Ilac.c,156 :: 		PORTC.B2 = 0;
 	BCF        PORTC+0, 2
-;Ilac.c,156 :: 		}
+;Ilac.c,157 :: 		}
 L_end_setup:
 	RETURN
 ; end of _setup
 
 _main:
 
-;Ilac.c,158 :: 		void main() {
-;Ilac.c,159 :: 		setup();
+;Ilac.c,159 :: 		void main() {
+;Ilac.c,160 :: 		setup();
 	CALL       _setup+0
-;Ilac.c,160 :: 		while(1){
+;Ilac.c,161 :: 		while(1){
 L_main25:
-;Ilac.c,161 :: 		getTime();
+;Ilac.c,162 :: 		if(!edit) getTime();
+	MOVF       _edit+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L_main27
 	CALL       _getTime+0
-;Ilac.c,162 :: 		for(i = 0; i < 5; i++){
-	CLRF       _i+0
 L_main27:
+;Ilac.c,163 :: 		for(i = 0; i < 5; i++){
+	CLRF       _i+0
+L_main28:
 	MOVLW      5
 	SUBWF      _i+0, 0
 	BTFSC      STATUS+0, 0
-	GOTO       L_main28
-;Ilac.c,163 :: 		if (alarms[i].active == 1 && alarms[i].hour == hour && alarms[i].minute == minute) {
+	GOTO       L_main29
+;Ilac.c,164 :: 		if (alarms[i].active == 1 && alarms[i].hour == hour && alarms[i].minute == minute && second < 5) {
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -846,7 +858,7 @@ L_main27:
 	XORWF      R1+0, 0
 L__main73:
 	BTFSS      STATUS+0, 2
-	GOTO       L_main32
+	GOTO       L_main33
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -860,7 +872,7 @@ L__main73:
 	MOVF       INDF+0, 0
 	XORWF      _hour+0, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L_main32
+	GOTO       L_main33
 	MOVF       _i+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -875,133 +887,137 @@ L__main73:
 	MOVF       R1+0, 0
 	XORWF      _minute+0, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L_main32
+	GOTO       L_main33
+	MOVLW      5
+	SUBWF      _second+0, 0
+	BTFSC      STATUS+0, 0
+	GOTO       L_main33
 L__main57:
-;Ilac.c,164 :: 		alarm(i);
+;Ilac.c,165 :: 		alarm(i);
 	MOVF       _i+0, 0
 	MOVWF      FARG_alarm_pageNum+0
 	CLRF       FARG_alarm_pageNum+1
 	CALL       _alarm+0
-;Ilac.c,165 :: 		}
-L_main32:
-;Ilac.c,162 :: 		for(i = 0; i < 5; i++){
-	INCF       _i+0, 1
 ;Ilac.c,166 :: 		}
-	GOTO       L_main27
-L_main28:
-;Ilac.c,167 :: 		key = 0;
+L_main33:
+;Ilac.c,163 :: 		for(i = 0; i < 5; i++){
+	INCF       _i+0, 1
+;Ilac.c,167 :: 		}
+	GOTO       L_main28
+L_main29:
+;Ilac.c,168 :: 		key = 0;
 	CLRF       _key+0
-;Ilac.c,168 :: 		key = Keypad_Key_Click();
+;Ilac.c,169 :: 		key = Keypad_Key_Click();
 	CALL       _Keypad_Key_Click+0
 	MOVF       R0+0, 0
 	MOVWF      _key+0
-;Ilac.c,169 :: 		switch (key){
-	GOTO       L_main33
-;Ilac.c,187 :: 		case 1:
-L_main35:
-;Ilac.c,188 :: 		editAlarm(7);
+;Ilac.c,170 :: 		switch (key){
+	GOTO       L_main34
+;Ilac.c,188 :: 		case 1:
+L_main36:
+;Ilac.c,189 :: 		editAlarm(7);
 	MOVLW      7
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,189 :: 		break;
-	GOTO       L_main34
-;Ilac.c,191 :: 		case 2:
-L_main36:
-;Ilac.c,192 :: 		editAlarm(4);
+;Ilac.c,190 :: 		break;
+	GOTO       L_main35
+;Ilac.c,192 :: 		case 2:
+L_main37:
+;Ilac.c,193 :: 		editAlarm(4);
 	MOVLW      4
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,193 :: 		break;
-	GOTO       L_main34
-;Ilac.c,195 :: 		case 3:
-L_main37:
-;Ilac.c,196 :: 		editAlarm(1);
+;Ilac.c,194 :: 		break;
+	GOTO       L_main35
+;Ilac.c,196 :: 		case 3:
+L_main38:
+;Ilac.c,197 :: 		editAlarm(1);
 	MOVLW      1
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,197 :: 		break;
-	GOTO       L_main34
-;Ilac.c,199 :: 		case 5:
-L_main38:
-;Ilac.c,200 :: 		editAlarm(8);
+;Ilac.c,198 :: 		break;
+	GOTO       L_main35
+;Ilac.c,200 :: 		case 5:
+L_main39:
+;Ilac.c,201 :: 		editAlarm(8);
 	MOVLW      8
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,201 :: 		break;
-	GOTO       L_main34
-;Ilac.c,202 :: 		case 6:
-L_main39:
-;Ilac.c,203 :: 		editAlarm(5);
+;Ilac.c,202 :: 		break;
+	GOTO       L_main35
+;Ilac.c,203 :: 		case 6:
+L_main40:
+;Ilac.c,204 :: 		editAlarm(5);
 	MOVLW      5
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,204 :: 		break;
-	GOTO       L_main34
-;Ilac.c,206 :: 		case 7:
-L_main40:
-;Ilac.c,207 :: 		editAlarm(2);
+;Ilac.c,205 :: 		break;
+	GOTO       L_main35
+;Ilac.c,207 :: 		case 7:
+L_main41:
+;Ilac.c,208 :: 		editAlarm(2);
 	MOVLW      2
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,208 :: 		break;
-	GOTO       L_main34
-;Ilac.c,210 :: 		case 8:
-L_main41:
-;Ilac.c,211 :: 		editAlarm(0);
+;Ilac.c,209 :: 		break;
+	GOTO       L_main35
+;Ilac.c,211 :: 		case 8:
+L_main42:
+;Ilac.c,212 :: 		editAlarm(0);
 	CLRF       FARG_editAlarm_num+0
 	CLRF       FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,212 :: 		break;
-	GOTO       L_main34
-;Ilac.c,214 :: 		case 9:
-L_main42:
-;Ilac.c,215 :: 		editAlarm(9);
+;Ilac.c,213 :: 		break;
+	GOTO       L_main35
+;Ilac.c,215 :: 		case 9:
+L_main43:
+;Ilac.c,216 :: 		editAlarm(9);
 	MOVLW      9
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,216 :: 		break;
-	GOTO       L_main34
-;Ilac.c,218 :: 		case 10:
-L_main43:
-;Ilac.c,219 :: 		editAlarm(6);
+;Ilac.c,217 :: 		break;
+	GOTO       L_main35
+;Ilac.c,219 :: 		case 10:
+L_main44:
+;Ilac.c,220 :: 		editAlarm(6);
 	MOVLW      6
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,220 :: 		break;
-	GOTO       L_main34
-;Ilac.c,222 :: 		case 11:
-L_main44:
-;Ilac.c,223 :: 		editAlarm(3);
+;Ilac.c,221 :: 		break;
+	GOTO       L_main35
+;Ilac.c,223 :: 		case 11:
+L_main45:
+;Ilac.c,224 :: 		editAlarm(3);
 	MOVLW      3
 	MOVWF      FARG_editAlarm_num+0
 	MOVLW      0
 	MOVWF      FARG_editAlarm_num+1
 	CALL       _editAlarm+0
-;Ilac.c,224 :: 		break;
-	GOTO       L_main34
-;Ilac.c,227 :: 		case 4:
-L_main45:
-;Ilac.c,228 :: 		if (!edit){
+;Ilac.c,225 :: 		break;
+	GOTO       L_main35
+;Ilac.c,228 :: 		case 4:
+L_main46:
+;Ilac.c,229 :: 		if (!edit){
 	MOVF       _edit+0, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L_main46
-;Ilac.c,229 :: 		alarms[page].active = !alarms[page].active;
+	GOTO       L_main47
+;Ilac.c,230 :: 		alarms[page].active = !alarms[page].active;
 	MOVF       _page+0, 0
 	MOVWF      R0+0
 	RLF        R0+0, 1
@@ -1028,95 +1044,100 @@ L_main45:
 	MOVWF      INDF+0
 	INCF       FSR, 1
 	CLRF       INDF+0
-;Ilac.c,230 :: 		pageView();
+;Ilac.c,231 :: 		pageView();
 	CALL       _pageView+0
-;Ilac.c,231 :: 		}
-L_main46:
-;Ilac.c,232 :: 		break;
-	GOTO       L_main34
-;Ilac.c,236 :: 		case 13:
+;Ilac.c,232 :: 		}
 L_main47:
-;Ilac.c,237 :: 		if (edit){
-	MOVF       _edit+0, 0
-	BTFSC      STATUS+0, 2
-	GOTO       L_main48
-;Ilac.c,238 :: 		edit = 0;
-	CLRF       _edit+0
-;Ilac.c,239 :: 		cursor = 0;
-	CLRF       _cursor+0
-;Ilac.c,240 :: 		LCD_CMD(_LCD_CURSOR_OFF);
-	MOVLW      12
-	MOVWF      FARG_Lcd_Cmd_out_char+0
-	CALL       _Lcd_Cmd+0
-;Ilac.c,241 :: 		}
-	GOTO       L_main49
+;Ilac.c,233 :: 		break;
+	GOTO       L_main35
+;Ilac.c,237 :: 		case 13:
 L_main48:
-;Ilac.c,243 :: 		edit = 1;
+;Ilac.c,238 :: 		if (!edit){
+	MOVF       _edit+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L_main49
+;Ilac.c,239 :: 		edit = 1;
 	MOVLW      1
 	MOVWF      _edit+0
-;Ilac.c,244 :: 		LCD_CMD(_LCD_BLINK_CURSOR_ON);
+;Ilac.c,240 :: 		LCD_Out(1,1,"    Edit Mode    ");
+	MOVLW      1
+	MOVWF      FARG_Lcd_Out_row+0
+	MOVLW      1
+	MOVWF      FARG_Lcd_Out_column+0
+	MOVLW      ?lstr5_Ilac+0
+	MOVWF      FARG_Lcd_Out_text+0
+	CALL       _Lcd_Out+0
+;Ilac.c,241 :: 		LCD_Out(2,9,"  :  ");
+	MOVLW      2
+	MOVWF      FARG_Lcd_Out_row+0
+	MOVLW      9
+	MOVWF      FARG_Lcd_Out_column+0
+	MOVLW      ?lstr6_Ilac+0
+	MOVWF      FARG_Lcd_Out_text+0
+	CALL       _Lcd_Out+0
+;Ilac.c,242 :: 		LCD_CMD(_LCD_BLINK_CURSOR_ON);
 	MOVLW      15
 	MOVWF      FARG_Lcd_Cmd_out_char+0
 	CALL       _Lcd_Cmd+0
-;Ilac.c,245 :: 		Lcd_Out(2,8," ");
+;Ilac.c,243 :: 		Lcd_Out(2,8," ");
 	MOVLW      2
 	MOVWF      FARG_Lcd_Out_row+0
 	MOVLW      8
 	MOVWF      FARG_Lcd_Out_column+0
-	MOVLW      ?lstr4_Ilac+0
+	MOVLW      ?lstr7_Ilac+0
 	MOVWF      FARG_Lcd_Out_text+0
 	CALL       _Lcd_Out+0
-;Ilac.c,246 :: 		}
+;Ilac.c,244 :: 		}
 L_main49:
-;Ilac.c,247 :: 		break;
-	GOTO       L_main34
-;Ilac.c,251 :: 		case 14:
+;Ilac.c,245 :: 		break;
+	GOTO       L_main35
+;Ilac.c,249 :: 		case 14:
 L_main50:
-;Ilac.c,252 :: 		led0 = 0;
+;Ilac.c,250 :: 		led0 = 0;
 	BCF        PORTC+0, 0
-;Ilac.c,253 :: 		led1 = 0;
+;Ilac.c,251 :: 		led1 = 0;
 	BCF        PORTC+0, 1
-;Ilac.c,254 :: 		led2 = 0;
+;Ilac.c,252 :: 		led2 = 0;
 	BCF        PORTC+0, 5
-;Ilac.c,255 :: 		led3 = 0;
+;Ilac.c,253 :: 		led3 = 0;
 	BCF        PORTC+0, 6
-;Ilac.c,256 :: 		led4 = 0;
+;Ilac.c,254 :: 		led4 = 0;
 	BCF        PORTC+0, 7
-;Ilac.c,257 :: 		PWM1_Stop();
+;Ilac.c,255 :: 		PWM1_Stop();
 	CALL       _PWM1_Stop+0
-;Ilac.c,258 :: 		break;
-	GOTO       L_main34
-;Ilac.c,261 :: 		case 15:
+;Ilac.c,256 :: 		break;
+	GOTO       L_main35
+;Ilac.c,259 :: 		case 15:
 L_main51:
-;Ilac.c,262 :: 		if (!edit){
+;Ilac.c,260 :: 		if (!edit){
 	MOVF       _edit+0, 0
 	BTFSS      STATUS+0, 2
 	GOTO       L_main52
-;Ilac.c,263 :: 		page--;
+;Ilac.c,261 :: 		page--;
 	DECF       _page+0, 1
-;Ilac.c,264 :: 		if (page == 255) {
+;Ilac.c,262 :: 		if (page == 255) {
 	MOVF       _page+0, 0
 	XORLW      255
 	BTFSS      STATUS+0, 2
 	GOTO       L_main53
-;Ilac.c,265 :: 		page = 4;
+;Ilac.c,263 :: 		page = 4;
 	MOVLW      4
 	MOVWF      _page+0
-;Ilac.c,266 :: 		}
+;Ilac.c,264 :: 		}
 L_main53:
-;Ilac.c,267 :: 		pageView();
+;Ilac.c,265 :: 		pageView();
 	CALL       _pageView+0
-;Ilac.c,268 :: 		}
+;Ilac.c,266 :: 		}
 L_main52:
-;Ilac.c,269 :: 		break;
-	GOTO       L_main34
-;Ilac.c,271 :: 		case 16:
+;Ilac.c,267 :: 		break;
+	GOTO       L_main35
+;Ilac.c,269 :: 		case 16:
 L_main54:
-;Ilac.c,272 :: 		if (!edit){
+;Ilac.c,270 :: 		if (!edit){
 	MOVF       _edit+0, 0
 	BTFSS      STATUS+0, 2
 	GOTO       L_main55
-;Ilac.c,273 :: 		page = (page + 1) % 5;
+;Ilac.c,271 :: 		page = (page + 1) % 5;
 	MOVF       _page+0, 0
 	ADDLW      1
 	MOVWF      R0+0
@@ -1134,62 +1155,62 @@ L_main54:
 	MOVWF      R0+1
 	MOVF       R0+0, 0
 	MOVWF      _page+0
-;Ilac.c,274 :: 		pageView();
+;Ilac.c,272 :: 		pageView();
 	CALL       _pageView+0
-;Ilac.c,275 :: 		}
+;Ilac.c,273 :: 		}
 L_main55:
-;Ilac.c,276 :: 		break;
-	GOTO       L_main34
-;Ilac.c,277 :: 		}
-L_main33:
+;Ilac.c,274 :: 		break;
+	GOTO       L_main35
+;Ilac.c,275 :: 		}
+L_main34:
 	MOVF       _key+0, 0
 	XORLW      1
 	BTFSC      STATUS+0, 2
-	GOTO       L_main35
+	GOTO       L_main36
 	MOVF       _key+0, 0
 	XORLW      2
 	BTFSC      STATUS+0, 2
-	GOTO       L_main36
+	GOTO       L_main37
 	MOVF       _key+0, 0
 	XORLW      3
 	BTFSC      STATUS+0, 2
-	GOTO       L_main37
+	GOTO       L_main38
 	MOVF       _key+0, 0
 	XORLW      5
 	BTFSC      STATUS+0, 2
-	GOTO       L_main38
+	GOTO       L_main39
 	MOVF       _key+0, 0
 	XORLW      6
 	BTFSC      STATUS+0, 2
-	GOTO       L_main39
+	GOTO       L_main40
 	MOVF       _key+0, 0
 	XORLW      7
 	BTFSC      STATUS+0, 2
-	GOTO       L_main40
+	GOTO       L_main41
 	MOVF       _key+0, 0
 	XORLW      8
 	BTFSC      STATUS+0, 2
-	GOTO       L_main41
+	GOTO       L_main42
 	MOVF       _key+0, 0
 	XORLW      9
 	BTFSC      STATUS+0, 2
-	GOTO       L_main42
+	GOTO       L_main43
 	MOVF       _key+0, 0
 	XORLW      10
 	BTFSC      STATUS+0, 2
-	GOTO       L_main43
+	GOTO       L_main44
 	MOVF       _key+0, 0
 	XORLW      11
 	BTFSC      STATUS+0, 2
-	GOTO       L_main44
+	GOTO       L_main45
 	MOVF       _key+0, 0
 	XORLW      4
 	BTFSC      STATUS+0, 2
-	GOTO       L_main45
+	GOTO       L_main46
 	MOVF       _key+0, 0
 	XORLW      13
 	BTFSC      STATUS+0, 2
-	GOTO       L_main47
+	GOTO       L_main48
 	MOVF       _key+0, 0
 	XORLW      14
 	BTFSC      STATUS+0, 2
@@ -1202,10 +1223,10 @@ L_main33:
 	XORLW      16
 	BTFSC      STATUS+0, 2
 	GOTO       L_main54
-L_main34:
-;Ilac.c,278 :: 		}
+L_main35:
+;Ilac.c,276 :: 		}
 	GOTO       L_main25
-;Ilac.c,279 :: 		}
+;Ilac.c,277 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main

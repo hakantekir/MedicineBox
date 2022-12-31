@@ -1,11 +1,11 @@
 0	1	mikroCPIC1618.exe -MSF -DBG -pP16F877 -DL -O11111114 -fo8 -N"C:\Users\hakan\Desktop\Ilac\Ilac.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"C:\Users\hakan\Desktop\Ilac\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" "Ilac.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_Keypad4x4.mcl" "__Lib_I2C_c34.mcl" "__Lib_PWM_c21.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl"	 
 hint: 0	1139	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
 diagnostics: 0	122	Compilation Started	Ilac.c
-diagnostics: 279	123	Compiled Successfully	Ilac.c
-diagnostics: 0	127	All files Compiled in 63 ms	 
-hint: 0	1144	Used RAM (bytes): 117 (33%)  Free RAM (bytes): 235 (67%)	Used RAM (bytes): 117 (33%)  Free RAM (bytes): 235 (67%)
-hint: 0	1144	Used ROM (program words): 2375 (29%)  Free ROM (program words): 5817 (71%)	Used ROM (program words): 2375 (29%)  Free ROM (program words): 5817 (71%)
+diagnostics: 277	123	Compiled Successfully	Ilac.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
+hint: 0	1144	Used RAM (bytes): 156 (44%)  Free RAM (bytes): 196 (56%)	Used RAM (bytes): 156 (44%)  Free RAM (bytes): 196 (56%)
+hint: 0	1144	Used ROM (program words): 2390 (29%)  Free ROM (program words): 5802 (71%)	Used ROM (program words): 2390 (29%)  Free ROM (program words): 5802 (71%)
 diagnostics: 0	125	Project Linked Successfully	Ilac.mcppi
-diagnostics: 0	128	Linked in 31 ms	 
-diagnostics: 0	129	Project 'Ilac.mcppi' completed: 109 ms	 
-diagnostics: 0	103	Finished successfully: 31 Dec 2022, 17:42:34	Ilac.mcppi
+diagnostics: 0	128	Linked in 62 ms	 
+diagnostics: 0	129	Project 'Ilac.mcppi' completed: 250 ms	 
+diagnostics: 0	103	Finished successfully: 31 Dec 2022, 18:22:47	Ilac.mcppi
